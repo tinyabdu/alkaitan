@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand: #1769aa;
+  --color-brand-dark: #0f5589;
+  --color-navy: #123a70;
+  --color-pale: #eaf3fb;
+  --color-warm: #f7f5f0;
+  --color-ink: #2d3748;
+
+  --font-sans: "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Playfair Display", Georgia, serif;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+  body {
+    @apply bg-white font-sans text-ink antialiased;
+    overflow-x: hidden;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-display text-navy;
+    letter-spacing: -0.015em;
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-brand);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  .on-dark :focus-visible {
+    outline-color: #fff;
+  }
+  section[id] {
+    scroll-margin-top: 4.5rem;
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+  .section-pad {
+    @apply py-16 sm:py-24;
+  }
+  .btn {
+    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 py-3 text-base font-semibold transition-colors;
+  }
+  .btn-primary {
+    @apply bg-brand text-white hover:bg-brand-dark;
+  }
+  .btn-outline {
+    @apply border-2 border-brand bg-transparent text-brand hover:bg-pale;
+  }
+  .btn-light {
+    @apply bg-white text-navy hover:bg-pale;
+  }
+  .input {
+    @apply w-full rounded-xl border border-slate-400 bg-white px-4 py-3 text-base text-ink placeholder:text-slate-500;
+  }
+  .input[aria-invalid="true"] {
+    @apply border-2 border-red-700;
+  }
+  /* Diagonal "thread" texture: a nod to the name, used as a quiet background */
+  .threads {
+    background-image: repeating-linear-gradient(
+      135deg,
+      transparent 0 14px,
+      rgb(23 105 170 / 0.08) 14px 15px
+    );
+  }
+}
+
+/* One deliberate moment: the hero arch settles into place on load */
+@media (prefers-reduced-motion: no-preference) {
+  .arch-in {
+    animation: arch-in 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  @keyframes arch-in {
+    from {
+      opacity: 0;
+      transform: translateY(24px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
